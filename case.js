@@ -81,7 +81,8 @@ function renderSteps(){
 function renderNarr(){
   const s = STEPS[cur];
   $("#narr").scrollTop = 0;
-  $("#narr").innerHTML = `<span class="label">Step ${cur + 1} of ${STEPS.length} · ${s.t}</span><h3>${s.h}</h3><p>${s.p}</p><p class="finding">${s.f}</p><p class="method">${s.m}</p>`;
+  const tag = s.pr ? `<span class="ptag ${s.pr[0]}">${s.pr[0] === "direct" ? "Problem" : "Hidden cost"} · ${s.pr[1]}${s.pr[2] === "next" ? " · next stage" : ""}</span>` : "";
+  $("#narr").innerHTML = `<span class="label">Step ${cur + 1} of ${STEPS.length} · ${s.t}</span>${tag}<h3>${s.h}</h3><p>${s.p}</p><p class="finding">${s.f}</p><p class="method">${s.m}</p>`;
 }
 function setView(v){
   $("#tab-graph").setAttribute("aria-selected", v === "graph");
@@ -125,6 +126,8 @@ cy.on("tap", "node", e => {
 });
 cy.on("tap", e => { if (e.target === cy) $("#card").hidden = true; });
 
+if ($("#addresses")) $("#addresses").innerHTML = STEPS.map((s, i) => s.pr ?
+  `<li><a class="${s.pr[0]}" href="#step-${i + 1}" title="${s.pr[0] === "direct" ? "A problem analysts name" : "A cost that doesn't show in a caseload report"}"><span class="n">${i + 1}</span>${s.pr[1]}</a></li>` : "").join("");
 if ($("#legend")) window.T.legend($("#legend"), [...new Set(cfg.stories.flatMap(st => st.nodes))]);
 // Links such as #step-4 open that step and bring the investigation into view.
 const stepFromHash = () => { const m = location.hash.match(/^#step-(\d+)$/); const k = m ? +m[1] - 1 : -1; return k >= 0 && k < STEPS.length ? k : -1; };
