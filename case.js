@@ -126,7 +126,14 @@ cy.on("tap", "node", e => {
 cy.on("tap", e => { if (e.target === cy) $("#card").hidden = true; });
 
 if ($("#legend")) window.T.legend($("#legend"), [...new Set(cfg.stories.flatMap(st => st.nodes))]);
-show(0);
-window.addEventListener("load", () => { cy.resize(); show(cur); });
+// Links such as #step-4 open that step and bring the investigation into view.
+const stepFromHash = () => { const m = location.hash.match(/^#step-(\d+)$/); const k = m ? +m[1] - 1 : -1; return k >= 0 && k < STEPS.length ? k : -1; };
+show(Math.max(0, stepFromHash()));
+document.addEventListener("click", e => {   // a repeat click on the current #step link does not fire hashchange
+  const a = e.target.closest('a[href^="#step-"]');
+  if (a && a.getAttribute("href") === location.hash) { e.preventDefault(); show(stepFromHash()); $("#investigation").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); }
+});
+window.addEventListener("hashchange", () => { const k = stepFromHash(); if (k >= 0) { show(k); $("#investigation").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); } });
+window.addEventListener("load", () => { cy.resize(); show(cur); if (stepFromHash() >= 0) $("#investigation").scrollIntoView(); });
 if (window.ResizeObserver) { let w = 0; new ResizeObserver(es => { const nw = Math.round(es[0].contentRect.width); if (w && Math.abs(nw - w) > 40) { cy.resize(); cy.fit(undefined, 30); } w = nw; }).observe($("#cy")); }
 };
