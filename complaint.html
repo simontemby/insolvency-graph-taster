@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Complaint Arrives · Who's Behind the Vote</title>
+<meta name="description" content="One creditor complaint about a debt agreement, and everything already on record that it connects to.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="styles.css?v=20">
+</head>
+<body data-page="complaint.html">
+<header id="site-header"></header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Use case 1: A complaint arrives</h1>
+    <p class="lede">A creditor complains about one debt agreement. Today that becomes one file. Step through what the records a regulator already holds say about it, and why this complaint should be first in the queue.</p>
+    <p class="status now">Uses data the regulator already receives</p>
+    <div class="cta"><a class="go" href="#investigation">Start the investigation</a><a class="ghost" href="index.html">Back to the overview</a></div>
+  </div>
+</section>
+
+<main>
+<section class="case" id="investigation" aria-label="Investigation">
+  <div class="wrap case-grid">
+    <div class="panel story">
+      <ol class="steps" id="steps" aria-label="Steps"></ol>
+      <div class="narr" id="narr" aria-live="polite"></div>
+      <div class="pager">
+        <button class="btn" id="prev" type="button">Back</button>
+        <button class="btn primary" id="next" type="button">Next connection</button>
+      </div>
+    </div>
+    <div class="panel exhibit">
+      <div class="ex-bar">
+        <div class="tabs" role="tablist" aria-label="View">
+          <button role="tab" id="tab-graph" aria-selected="true" type="button">Graph</button>
+          <button role="tab" id="tab-table" aria-selected="false" type="button">The case file, as a table</button>
+        </div>
+        <span class="ex-meta">Complaint · synthetic · priority harm 2</span>
+      </div>
+      <div class="stage">
+        <div id="cy" role="img" aria-label="Network graph of a complaint and the records it connects to"></div>
+        <div class="tableview" id="tableview" hidden></div>
+        <div class="card" id="card" hidden></div>
+      </div>
+      <div class="ex-foot">
+        <span class="key"><i></i>declared on a form or register</span>
+        <span class="key"><i class="o"></i>observed in a lookup or listing</span>
+        <span class="key"><i style="background:var(--risk);width:10px;height:10px;border:0;border-radius:50%"></i>terminated agreement</span>
+        <span>Select any node to see where each fact came from.</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap legend" id="legend" aria-label="Node types"></div>
+  <div class="wrap next"><a href="debt-agreements.html">Next: Use case 2, proposal contacts</a></div>
+</section>
+</main>
+
+<footer id="site-footer"></footer>
+<script src="layout.js?v=20"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
+<script src="data.js?v=20"></script>
+<script src="common.js?v=20"></script>
+<script src="case.js?v=20"></script>
+<script src="case-complaint.js?v=20"></script>
+</body>
+</html>

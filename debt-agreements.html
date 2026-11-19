@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Debt Agreements · Who's Behind the Vote</title>
+<meta name="description" content="The same contact details on unrelated debtors' debt agreement proposals, found without waiting for a complaint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="styles.css?v=20">
+</head>
+<body data-page="debt-agreements.html">
+<header id="site-header"></header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Use case 2: One contact, many debtors</h1>
+    <p class="lede">Debt agreement proposals are lodged one at a time, with many different administrators. When the same contact details appear on unrelated debtors' proposals, someone else may be arranging them. This runs on proposal forms and outcomes the regulator already receives, without waiting for a complaint.</p>
+    <p class="status now">Uses data the regulator already receives</p>
+    <div class="cta"><a class="go" href="#investigation">Start the investigation</a><a class="ghost" href="index.html">Back to the overview</a></div>
+  </div>
+</section>
+
+<main>
+<section class="case" id="investigation" aria-label="Investigation">
+  <div class="wrap case-grid">
+    <div class="panel story">
+      <ol class="steps" id="steps" aria-label="Steps"></ol>
+      <div class="narr" id="narr" aria-live="polite"></div>
+      <div class="pager">
+        <button class="btn" id="prev" type="button">Back</button>
+        <button class="btn primary" id="next" type="button">Next connection</button>
+      </div>
+    </div>
+    <div class="panel exhibit">
+      <div class="ex-bar">
+        <div class="tabs" role="tablist" aria-label="View">
+          <button role="tab" id="tab-graph" aria-selected="true" type="button">Graph</button>
+          <button role="tab" id="tab-table" aria-selected="false" type="button">The proposals, as a table</button>
+        </div>
+        <span class="ex-meta">Proposals · synthetic · priority harm 2</span>
+      </div>
+      <div class="stage">
+        <div id="cy" role="img" aria-label="Network graph of debt agreement proposals and their contact details"></div>
+        <div class="tableview" id="tableview" hidden></div>
+        <div class="card" id="card" hidden></div>
+      </div>
+      <div class="ex-foot">
+        <span class="key"><i></i>declared on a form or register</span>
+        <span class="key"><i class="o"></i>observed in a public listing</span>
+        <span class="key"><i style="background:var(--risk);width:10px;height:10px;border:0;border-radius:50%"></i>terminated agreement</span>
+        <span>Select any node to see where each fact came from.</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap legend" id="legend" aria-label="Node types"></div>
+  <div class="wrap next"><a href="vote.html">Next: Use case 3, proposal votes (future)</a></div>
+</section>
+</main>
+
+<footer id="site-footer"></footer>
+<script src="layout.js?v=20"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
+<script src="data.js?v=20"></script>
+<script src="common.js?v=20"></script>
+<script src="case.js?v=20"></script>
+<script src="case-debt.js?v=20"></script>
+</body>
+</html>

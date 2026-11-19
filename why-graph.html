@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Why Graph · Who's Behind the Vote</title>
+<meta name="description" content="A rules check and two graph methods tested on 100 synthetic proposals with known answers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="styles.css?v=20">
+</head>
+<body data-page="why-graph.html">
+<header id="site-header"></header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <h1>Why graph</h1>
+    <p>We tested use cases 2 and 3 on synthetic data where we planted the answers. For each, a check that looks at one record at a time competes with two graph methods over the same data. Use case 1 is a walkthrough of a single complaint, so it has no test of its own.</p>
+  </div>
+</section>
+
+<main>
+<section class="band">
+  <div class="wrap">
+    <div class="head">
+      <h2>Use case 2: one contact, many debtors</h2>
+      <div class="prose">
+        <p>The data holds <span data-t="proposals"></span> synthetic debt agreement proposals. In <span data-t="planted"></span> of them, spread across <span data-t="schemes"></span> unregistered advisers, the contact phone and email on the form belong to the adviser instead of the debtor. Three advisers use one phone and email. One uses them on only 4 proposals. One rotates three phones and three emails so that no single detail appears more than four times.</p>
+        <p>As controls, two administrators are the contact for <span data-t="admin_office"></span> of their own clients' proposals, a listed financial counselling service is the contact for <span data-t="counsel"></span>, and <span data-t="household"></span> proposals come from couples sharing one household phone.</p>
+      </div>
+    </div>
+    <div class="table-wrap" style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Method</th><th>Flags a proposal when…</th></tr></thead>
+        <tbody>
+          <tr><td><b>Watchlist</b></td><td>its contact phone or email was recorded against an adviser in a past investigation</td></tr>
+          <tr><td><b>Shared contact count</b></td><td>its contact phone or email appears on at least five proposals</td></tr>
+          <tr><td><b>Graph grouping with context</b></td><td>it belongs to a group of at least five proposals joined through any shared contact detail, ignoring details that belong to a registered administrator or a listed service</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="head"><h2>Use case 2 results</h2></div>
+    <div class="bignums" id="bignums2"></div>
+    <div class="grid2" style="margin-top:24px">
+      <div class="figure">
+        <h3>Planted proposals found, by adviser</h3>
+        <svg class="chart" id="schemechart" viewBox="0 0 520 270" role="img" aria-label="Proposals arranged by each adviser, and how many each method found"></svg>
+        <p class="cap" id="schemecap"></p>
+      </div>
+      <div class="figure">
+        <h3>Control proposals flagged in error</h3>
+        <svg class="chart" id="stdchart" viewBox="0 0 520 270" role="img" aria-label="Control proposals flagged by each method"></svg>
+        <p class="cap" id="stdcap"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head">
+      <h2>Use case 3 (future): connected voting creditors</h2>
+      <div class="prose">
+        <p>In 40 proposals we planted a creditor connected to the debtor who voted yes, at five levels of indirection. The other 60 are controls: 22 where a creditor uses the same tax agent office address as the debtor, 12 where a creditor shares the debtor's surname, 2 where a creditor shares a former address with the debtor, and 24 with no connection.</p>
+      </div>
+    </div>
+    <div class="table-wrap" style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Method</th><th>Flags a proposal when a yes-voting creditor (other than a large lender)…</th></tr></thead>
+        <tbody>
+          <tr><td><b>Rules check</b></td><td>shares a phone, address, email, email domain or bank account record with the debtor, or has the same surname</td></tr>
+          <tr><td><b>Graph traversal</b></td><td>is reachable from the debtor by a path of up to five relationships through people, companies and those identifiers</td></tr>
+          <tr><td><b>Graph with context</b></td><td>is reachable as above, without passing through a registered practitioner or an identifier shared by more than eight people or companies</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="head"><h2>Use case 3 results</h2></div>
+    <div class="bignums" id="bignums"></div>
+    <div class="grid2" style="margin-top:24px">
+      <div class="figure">
+        <h3>Planted connections found, by level</h3>
+        <svg class="chart" id="depthchart" viewBox="0 0 520 270" role="img" aria-label="Planted connected creditors at each level, and how many each method found"></svg>
+        <p class="cap" id="depthcap"></p>
+      </div>
+      <div class="figure">
+        <h3>Control proposals flagged in error</h3>
+        <svg class="chart" id="decoychart" viewBox="0 0 520 270" role="img" aria-label="Control proposals flagged by each method"></svg>
+        <p class="cap">Traversal alone flags every proposal where a creditor uses the debtor's tax agent office, because the office address links them. The context rule stops at identifiers shared by more than eight entities, which removes those. The two shared former addresses are each used by only two people, so both graph methods flag them. An investigator would want to look at those two.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="grid2 wide-right">
+      <div class="figure">
+        <h3>The query</h3>
+<pre class="code"><span class="c">// yes-voting creditors within five relationships of the debtor</span>
+<span class="k">MATCH</span> (d:Person)-[:DEBTOR_OF]->(e:Estate {type: 'pia'})
+      <-[v:VOTED {in_favour: true}]-(c)
+<span class="k">WHERE</span> coalesce(c.role, '') <> 'generic_creditor'
+<span class="k">MATCH</span> p = <span class="k">SHORTEST</span> 1 (d)
+  (()-[:HAS_ADDRESS|HAS_PHONE|HAS_EMAIL|USES_DOMAIN
+       |HOLDS_ACCOUNT|DIRECTOR_OF|SHAREHOLDER_OF
+       |SPOUSE_OF|RELATIVE_OF]-(x)
+     <span class="k">WHERE</span> x.regulated <span class="k">IS NULL</span>
+       <span class="k">AND</span> coalesce(x.shared_by, 0) <= 8){1,5} (c)
+<span class="k">RETURN</span> e.ref, c.name, v.amount, length(p) <span class="k">AS</span> hops, p</pre>
+        <p class="cap">One pattern covers every relationship type, at any length up to five, and returns the connecting path as evidence. Removing the <code>WHERE</code> clause on <code>x</code> gives the plain traversal method. In SQL, the same question is usually written as a recursive query over a union of the link tables, with the path rebuilt separately.</p>
+      </div>
+      <div class="figure">
+        <h3>Finding the adviser</h3>
+        <div class="rank3">
+          <div><span class="label">Whole graph · connections</span><ol class="rank" id="rank-degree"></ol></div>
+          <div><span class="label">Link graph · connections</span><ol class="rank" id="rank-pdegree"></ol></div>
+          <div><span class="label">Link graph · betweenness</span><ol class="rank" id="rank-between"></ol></div>
+        </div>
+        <p class="cap" id="rankcap"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="limits">
+      <h3>Limits of these tests</h3>
+      <ul>
+        <li>We generated both the data and the methods. The planted patterns follow tactics AFSA and the courts have described, but how many there are, and how they are arranged, was our choice.</li>
+        <li>In use case 3, we set the threshold of eight knowing what the control cases looked like. The context result shows how the mechanism works. It is not a measure of accuracy on real data, which would need its own test.</li>
+        <li>The use case 3 query has not been run against a Neo4j database for this site. The results come from a Python implementation of the same logic: shortest path of up to five relationships, the same relationship types, and the same filter on every node in the path.</li>
+        <li id="lim-l3"></li>
+        <li>In use case 2, the threshold of five proposals was set by us, and the 4-proposal adviser was planted to show where the method fails.</li>
+        <li>Termination rates in use cases 1 and 2 are design choices in the synthetic data, not AFSA figures, and neither test uses them.</li>
+      </ul>
+    </div>
+    <div class="next"><a href="hume.html">Next: Hume</a></div>
+  </div>
+</section>
+</main>
+
+<footer id="site-footer"></footer>
+<script src="layout.js?v=20"></script>
+<script src="data.js?v=20"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
+<script src="common.js?v=20"></script>
+<script src="why-graph.js?v=20"></script>
+</body>
+</html>
