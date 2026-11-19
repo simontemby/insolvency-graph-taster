@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="styles.css?v=25">
 </head>
 <body data-page="where.html">
 <header id="site-header"></header>
@@ -36,6 +36,23 @@
       <li><b>Work that's hard to show</b><span>The case is recorded as covering 41 proposals, instead of one closed file.</span></li>
     </ul>
     <p class="cite" style="margin-top:14px">Each of these uses records already received: complaints, proposal forms and lodgements, the NPII, the registers and past investigation records. <a href="complaint.html">Use case 1</a> and <a href="debt-agreements.html">use case 2</a> show them step by step.</p>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="head">
+      <h2>What builds up</h2>
+      <p class="prose">A file handled on its own is finished when it closes. A connected record keeps working: each proposal lodged joins what is already known, so the next one arrives with more around it.</p>
+    </div>
+    <div class="figure buildup">
+      <h3>Proposals from the planted groups that can be seen, quarter by quarter</h3>
+      <div class="chartbox"><svg class="chart" id="buildchart" viewBox="0 0 720 300" role="img" aria-label="Cumulative proposals visible as part of a known group, compared with proposals seen through complaints, by quarter"></svg><div class="tip" id="buildtip" hidden></div></div>
+      <p class="cap" id="buildcap"></p>
+      <details class="tableview-inline"><summary>Show as a table</summary><div id="buildtable"></div></details>
+    </div>
+    <div class="carried" id="carried" data-upto="all" style="margin-top:20px"></div>
+    <p class="cite" style="margin-top:10px">A replay of the synthetic data in date order, using the same grouping as use case 2 (five or more proposals joined through shared contact details, ignoring registered ones). It shows the shape of the effect, not a forecast for real records.</p>
   </div>
 </section>
 
@@ -71,6 +88,9 @@
 </main>
 
 <footer id="site-footer"></footer>
-<script src="layout.js?v=23"></script>
+<script src="layout.js?v=25"></script>
+<script src="data.js?v=25"></script>
+<script src="ledger.js?v=25"></script>
+<script src="where.js?v=25"></script>
 </body>
 </html>
